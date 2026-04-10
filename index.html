@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proof of Play — Know what your club is worth</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=DM+Mono:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#192335;--navy-deep:#0f1825;--mint:#10B982;--mint-dim:rgba(16,185,130,0.15);--teal:#2DD4BF;--amber:#FBBF24;--blue:#60A5FA;--white:#f8fafc;--white-dim:rgba(248,250,252,0.68);--white-faint:rgba(248,250,252,0.32);--card-bg:rgba(30,45,69,0.92);--border:rgba(16,185,130,0.22);--border-faint:rgba(248,250,252,0.07);}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--navy);color:var(--white);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.6;min-height:100vh;overflow-x:hidden;display:flex;flex-direction:column;}
+
+  .bg-layer{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 50% -10%,rgba(16,185,130,.09) 0%,transparent 65%),radial-gradient(ellipse 40% 40% at 90% 80%,rgba(45,212,191,.05) 0%,transparent 60%),radial-gradient(ellipse 30% 40% at 5% 70%,rgba(96,165,250,.04) 0%,transparent 60%);}
+  .grid-layer{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(16,185,130,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(16,185,130,.03) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(ellipse 90% 90% at 50% 50%,black 30%,transparent 80%);}
+
+  main{position:relative;z-index:1;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4rem 2rem;min-height:100vh;}
+
+  .top-mark{display:flex;align-items:center;gap:.75rem;margin-bottom:3rem;animation:fade-in .6s ease both;}
+  .mark-logo{width:40px;height:40px;background:var(--mint);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:var(--navy);}
+  .mark-name{font-weight:600;font-size:17px;color:var(--white);letter-spacing:-.3px;display:block;}
+  .mark-sub{font-family:'DM Mono',monospace;font-size:10px;color:var(--mint);letter-spacing:.5px;text-transform:uppercase;display:block;margin-top:1px;}
+
+  .hub-headline{font-family:'Fraunces',serif;font-size:clamp(2.8rem,6vw,5rem);font-weight:300;line-height:1.05;letter-spacing:-.03em;color:var(--white);text-align:center;margin-bottom:1.5rem;max-width:700px;animation:fade-up .7s ease .1s both;}
+  .hub-headline em{font-style:italic;color:var(--mint);}
+  .hub-body{font-size:1.1rem;color:var(--white-dim);line-height:1.72;text-align:center;max-width:560px;margin-bottom:4rem;animation:fade-up .7s ease .2s both;}
+
+  .hub-divider{display:flex;align-items:center;gap:1rem;width:100%;max-width:920px;margin-bottom:2rem;animation:fade-up .7s ease .25s both;}
+  .hub-divider-line{flex:1;height:1px;background:var(--border-faint);}
+  .hub-divider-text{font-family:'DM Mono',monospace;font-size:10px;color:var(--white-faint);letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;}
+
+  /* Grid: clubs full-width on top, CFA+AP below */
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;width:100%;max-width:920px;animation:fade-up .7s ease .3s both;}
+
+  /* CLUBS CARD — full width */
+  .card-clubs{grid-column:1/-1;background:var(--card-bg);border:1px solid var(--border-faint);border-radius:16px;overflow:hidden;position:relative;transition:border-color .25s;}
+  .card-clubs:hover{border-color:var(--border);}
+  .card-clubs::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--mint),var(--teal));opacity:0;transition:opacity .25s;}
+  .card-clubs:hover::before{opacity:1;}
+
+  .cc-header{padding:1.75rem 2rem 1.25rem;}
+  .cc-tag{display:inline-block;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.2px;text-transform:uppercase;padding:.2rem .7rem;border-radius:100px;border:1px solid rgba(16,185,130,.3);background:var(--mint-dim);color:var(--mint);margin-bottom:.85rem;}
+  .cc-title{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:300;line-height:1.2;color:var(--white);}
+  .cc-title em{font-style:italic;color:var(--mint);}
+  .cc-body{font-size:13.5px;color:var(--white-dim);line-height:1.65;margin-top:.6rem;}
+
+  /* Split options within clubs card */
+  .cc-options{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--border-faint);}
+
+  .so{padding:1.5rem 2rem;text-decoration:none;display:flex;flex-direction:column;gap:.5rem;transition:background .2s;position:relative;}
+  .so:first-child{border-right:1px solid var(--border-faint);}
+  .so:hover{background:rgba(248,250,252,.03);}
+
+  .so-icon{font-size:1.4rem;margin-bottom:.15rem;}
+  .so-title{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:400;color:var(--white);line-height:1.25;}
+  .so-sports{font-family:'DM Mono',monospace;font-size:10px;color:var(--white-faint);letter-spacing:.3px;line-height:1.7;margin-top:.15rem;}
+  .so-cta{display:flex;align-items:center;gap:.5rem;font-size:13px;font-weight:600;margin-top:.6rem;padding-top:.65rem;border-top:1px solid var(--border-faint);}
+  .so-arrow{font-size:14px;transition:transform .2s;}
+  .so:hover .so-arrow{transform:translateX(4px);}
+  .so.football .so-title em{color:var(--mint);}
+  .so.football .so-cta{color:var(--mint);}
+  .so.multi .so-title em{color:var(--teal);}
+  .so.multi .so-cta{color:var(--teal);}
+
+  /* CFA / AP cards */
+  .card{background:var(--card-bg);border:1px solid var(--border-faint);border-radius:16px;padding:2rem 1.75rem 1.75rem;text-decoration:none;display:flex;flex-direction:column;gap:.75rem;position:relative;overflow:hidden;transition:border-color .25s,transform .25s,box-shadow .25s;}
+  .card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;opacity:0;transition:opacity .25s;}
+  .card:hover{border-color:var(--border);transform:translateY(-4px);box-shadow:0 20px 50px rgba(0,0,0,.4);}
+  .card:hover::before{opacity:1;}
+  .card.cfa::before{background:linear-gradient(90deg,var(--amber),#f59e0b);}
+  .card.ap::before{background:linear-gradient(90deg,var(--blue),var(--teal));}
+
+  .card-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.2px;text-transform:uppercase;display:inline-block;padding:.2rem .7rem;border-radius:100px;border:1px solid;width:fit-content;}
+  .card.cfa .card-tag{color:var(--amber);border-color:rgba(251,191,36,.3);background:rgba(251,191,36,.1);}
+  .card.ap  .card-tag{color:var(--blue);border-color:rgba(96,165,250,.3);background:rgba(96,165,250,.1);}
+
+  .card-title{font-family:'Fraunces',serif;font-size:1.35rem;font-weight:300;line-height:1.2;color:var(--white);letter-spacing:-.01em;}
+  .card.cfa .card-title em{font-style:italic;color:var(--amber);}
+  .card.ap  .card-title em{font-style:italic;color:var(--blue);}
+
+  .card-body{font-size:13.5px;color:var(--white-dim);line-height:1.65;flex:1;}
+
+  .card-cta{display:flex;align-items:center;justify-content:space-between;margin-top:.5rem;padding-top:1rem;border-top:1px solid var(--border-faint);font-size:13px;font-weight:600;}
+  .card.cfa .card-cta{color:var(--amber);}
+  .card.ap  .card-cta{color:var(--blue);}
+  .card-arrow{font-size:16px;transition:transform .2s;}
+  .card:hover .card-arrow{transform:translateX(4px);}
+
+  .hub-note{margin-top:3rem;font-family:'DM Mono',monospace;font-size:11px;color:var(--white-faint);text-align:center;letter-spacing:.3px;line-height:1.8;animation:fade-up .7s ease .4s both;}
+  .hub-note a{color:var(--mint);text-decoration:none;}
+  .hub-note a:hover{text-decoration:underline;}
+
+  footer{position:relative;z-index:1;padding:1.5rem 2rem;border-top:1px solid var(--border-faint);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+  .foot-brand{font-family:'Fraunces',serif;font-size:.95rem;color:var(--white-faint);}
+  .foot-links{display:flex;gap:1.5rem;}
+  .foot-links a{font-size:12px;color:var(--white-faint);text-decoration:none;transition:color .2s;}
+  .foot-links a:hover{color:var(--mint);}
+
+  @keyframes fade-in{from{opacity:0;}to{opacity:1;}}
+  @keyframes fade-up{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+  @media(max-width:700px){
+    .cards{grid-template-columns:1fr;}
+    .cc-options{grid-template-columns:1fr;}
+    .so:first-child{border-right:none;border-bottom:1px solid var(--border-faint);}
+    .hub-headline{font-size:2.6rem;}
+    main{padding:3rem 1.5rem;}
+    .cc-header{padding:1.5rem 1.5rem 1rem;}
+    .so{padding:1.25rem 1.5rem;}
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-layer"></div>
+<div class="grid-layer"></div>
+
+<main>
+  <div class="top-mark">
+    <div class="mark-logo">PoP</div>
+    <div>
+      <span class="mark-name">Proof of Play</span>
+      <span class="mark-sub">by FMHA · withinu</span>
+    </div>
+  </div>
+
+  <h1 class="hub-headline">
+    Grassroots sport generates<br>
+    <em>millions.</em> Most clubs<br>
+    don't know it yet.
+  </h1>
+
+  <p class="hub-body">
+    Proof of Play calculates the social value your club generates every week — in the language funders, local authorities and commissioners use to make decisions. Built on HM Treasury WELLBY methodology and Sport England's 2023/24 Social Value Model.
+  </p>
+
+  <div class="hub-divider">
+    <div class="hub-divider-line"></div>
+    <div class="hub-divider-text">Who are you?</div>
+    <div class="hub-divider-line"></div>
+  </div>
+
+  <div class="cards">
+
+    <!-- CLUBS — full width with split sub-options -->
+    <div class="card-clubs">
+      <div class="cc-header">
+        <span class="cc-tag">For clubs</span>
+        <h2 class="cc-title">I run a <em>grassroots club.</em></h2>
+        <p class="cc-body">Find out what your club generates in social value, NHS savings and volunteer contribution — and get a report you can use in funding applications, with your local authority, and at your AGM. Free. Takes about ten minutes.</p>
+      </div>
+      <div class="cc-options">
+        <a href="clubs.html" class="so football">
+          <span class="so-icon">⚽</span>
+          <div class="so-title">I run a <em>football club.</em></div>
+          <div class="so-sports">Grassroots football · Sunday league<br>Junior football · Walking football</div>
+          <div class="so-cta"><span>Get your report</span><span class="so-arrow">→</span></div>
+        </a>
+        <a href="clubs.html" class="so multi">
+          <span class="so-icon">🏏</span>
+          <div class="so-title">I run a <em>sports club.</em></div>
+          <div class="so-sports">Cricket · Rugby · Athletics · Bowls<br>Basketball · Swimming · Golf · Tennis<br>Netball · Hockey · and more</div>
+          <div class="so-cta"><span>Get your report</span><span class="so-arrow">→</span></div>
+        </a>
+      </div>
+    </div>
+
+    <!-- CFA -->
+    <a href="cfa.html" class="card cfa">
+      <span class="card-tag">For County FAs</span>
+      <h2 class="card-title">I work for a<br><em>County FA.</em></h2>
+      <p class="card-body">Give every club in your county a social value report in ten minutes. Build a county-wide dataset for Sport England, the Football Foundation and local authority conversations — automatically, as clubs complete assessments.</p>
+      <div class="card-cta"><span>See what the county dashboard gives you</span><span class="card-arrow">→</span></div>
+    </a>
+
+    <!-- AP -->
+    <a href="ap.html" class="card ap">
+      <span class="card-tag">For Active Partnerships</span>
+      <h2 class="card-title">I work for an<br><em>Active Partnership.</em></h2>
+      <p class="card-body">Get the club-level evidence your area reporting is missing. IMD data per club, NHS savings across your network, funding readiness flags, public health commissioner framing — all built automatically as clubs complete assessments.</p>
+      <div class="card-cta"><span>See what the area dashboard gives you</span><span class="card-arrow">→</span></div>
+    </a>
+
+  </div>
+
+  <p class="hub-note">
+    Built on HM Treasury WELLBY methodology and Sport England's 2023/24 Social Value Model.<br>
+    Outputs are evidence-informed estimates. Not independently audited.<br>
+    <a href="https://vault.thefmha.com/how-proof-of-play-calculates-social-value/">Full methodology →</a>
+    &nbsp;·&nbsp;
+    <a href="https://thefmha.com">thefmha.com</a>
+    &nbsp;·&nbsp;
+    <a href="https://withinu.net">withinu.net</a>
+  </p>
+</main>
+
+<footer>
+  <div class="foot-brand">Proof of Play · by FMHA · withinu</div>
+  <div class="foot-links">
+    <a href="mailto:danny@withinu.net">danny@withinu.net</a>
+    <a href="tel:03330500399">03330 500 399</a>
+  </div>
+</footer>
+
+</body>
+</html>
