@@ -27,12 +27,12 @@
   .hub-headline em{font-style:italic;color:var(--mint);}
   .hub-body{font-size:1.1rem;color:var(--white-dim);line-height:1.72;text-align:center;max-width:560px;margin-bottom:4rem;animation:fade-up .7s ease .2s both;}
 
-  .hub-divider{display:flex;align-items:center;gap:1rem;width:100%;max-width:920px;margin-bottom:2rem;animation:fade-up .7s ease .25s both;}
+  .hub-divider{display:flex;align-items:center;gap:1rem;width:100%;max-width:1100px;margin-bottom:2rem;animation:fade-up .7s ease .25s both;}
   .hub-divider-line{flex:1;height:1px;background:var(--border-faint);}
   .hub-divider-text{font-family:'DM Mono',monospace;font-size:10px;color:var(--white-faint);letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;}
 
-  /* Grid: clubs full-width on top, CFA+AP below */
-  .cards{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;width:100%;max-width:920px;animation:fade-up .7s ease .3s both;}
+  /* Grid: clubs full-width on top, CFA+AP+NGB below */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;width:100%;max-width:1100px;animation:fade-up .7s ease .3s both;}
 
   /* CLUBS CARD — full width */
   .card-clubs{grid-column:1/-1;background:var(--card-bg);border:1px solid var(--border-faint);border-radius:16px;overflow:hidden;position:relative;transition:border-color .25s;}
@@ -71,20 +71,24 @@
   .card:hover::before{opacity:1;}
   .card.cfa::before{background:linear-gradient(90deg,var(--amber),#f59e0b);}
   .card.ap::before{background:linear-gradient(90deg,var(--blue),var(--teal));}
+  .card.ngb::before{background:linear-gradient(90deg,var(--mint),var(--teal));}
 
   .card-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.2px;text-transform:uppercase;display:inline-block;padding:.2rem .7rem;border-radius:100px;border:1px solid;width:fit-content;}
   .card.cfa .card-tag{color:var(--amber);border-color:rgba(251,191,36,.3);background:rgba(251,191,36,.1);}
   .card.ap  .card-tag{color:var(--blue);border-color:rgba(96,165,250,.3);background:rgba(96,165,250,.1);}
+  .card.ngb .card-tag{color:var(--mint);border-color:rgba(16,185,130,.3);background:rgba(16,185,130,.1);}
 
   .card-title{font-family:'Fraunces',serif;font-size:1.35rem;font-weight:300;line-height:1.2;color:var(--white);letter-spacing:-.01em;}
   .card.cfa .card-title em{font-style:italic;color:var(--amber);}
   .card.ap  .card-title em{font-style:italic;color:var(--blue);}
+  .card.ngb .card-title em{font-style:italic;color:var(--mint);}
 
   .card-body{font-size:13.5px;color:var(--white-dim);line-height:1.65;flex:1;}
 
   .card-cta{display:flex;align-items:center;justify-content:space-between;margin-top:.5rem;padding-top:1rem;border-top:1px solid var(--border-faint);font-size:13px;font-weight:600;}
   .card.cfa .card-cta{color:var(--amber);}
   .card.ap  .card-cta{color:var(--blue);}
+  .card.ngb .card-cta{color:var(--mint);}
   .card-arrow{font-size:16px;transition:transform .2s;}
   .card:hover .card-arrow{transform:translateX(4px);}
 
@@ -181,6 +185,14 @@
       <h2 class="card-title">I work for an<br><em>Active Partnership.</em></h2>
       <p class="card-body">Get the club-level evidence your area reporting is missing. IMD data per club, health and productivity savings across your network, funding readiness flags, public health commissioner framing — all built automatically as clubs complete assessments.</p>
       <div class="card-cta"><span>See what the area dashboard gives you</span><span class="card-arrow">→</span></div>
+    </a>
+
+    <!-- NGB -->
+    <a href="https://withinu.net/proof-of-play-for-ngb/" class="card ngb">
+      <span class="card-tag">For National Governing Bodies</span>
+      <h2 class="card-title">I work for a<br><em>national governing body.</em></h2>
+      <p class="card-body">Give every affiliated club a social value report and keep the data yourself. Sport-filtered dashboard, NGB grant readiness per club, deprivation context, welfare data — built automatically as your affiliated clubs complete assessments.</p>
+      <div class="card-cta"><span>See what the NGB dashboard gives you</span><span class="card-arrow">→</span></div>
     </a>
 
   </div>
