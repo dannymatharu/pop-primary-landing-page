@@ -102,6 +102,16 @@
   .foot-links a{font-size:12px;color:var(--white-faint);text-decoration:none;transition:color .2s;}
   .foot-links a:hover{color:var(--mint);}
 
+  /* TWO-TOOL FLOW — Proof of Play → Funding Bench */
+  .two-tool-flow{display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;width:100%;max-width:760px;margin-bottom:3.5rem;animation:fade-up .7s ease .22s both;}
+  .ttf-step{display:flex;align-items:center;gap:.9rem;background:var(--card-bg);border:1px solid var(--border-faint);border-radius:12px;padding:1rem 1.25rem;flex:1;min-width:260px;transition:border-color .25s;}
+  .ttf-step:hover{border-color:var(--border);}
+  .ttf-icon{width:38px;height:38px;background:var(--mint-dim);border:1px solid var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.15rem;flex-shrink:0;}
+  .ttf-name{font-family:'Fraunces',serif;font-size:1.05rem;font-weight:400;color:var(--white);line-height:1.2;}
+  .ttf-desc{font-family:'DM Mono',monospace;font-size:10px;color:var(--white-faint);letter-spacing:.4px;text-transform:uppercase;margin-top:.3rem;}
+  .ttf-arrow{font-size:1.4rem;color:var(--mint);font-weight:300;flex-shrink:0;}
+  @media(max-width:700px){.ttf-arrow{transform:rotate(90deg);}.two-tool-flow{flex-direction:column;}}
+
   @keyframes fade-in{from{opacity:0;}to{opacity:1;}}
   @keyframes fade-up{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 
@@ -137,8 +147,26 @@
   </h1>
 
   <p class="hub-body">
-    Proof of Play calculates the social value your club generates every week — in the language funders, local authorities and commissioners use to make decisions. Built on HM Treasury WELLBY methodology and Sport England's 2023/24 Social Value Model.
+    Proof of Play calculates the social value your club generates every week — in the language funders, local authorities and commissioners use to make decisions. Then your profile flows straight into The Funding Bench, our matching engine for live grants you're actually eligible for. Two free tools, one shared answer set.
   </p>
+
+  <div class="two-tool-flow">
+    <div class="ttf-step">
+      <div class="ttf-icon">📊</div>
+      <div>
+        <div class="ttf-name">Proof of Play</div>
+        <div class="ttf-desc">Measure social value · ~10 min</div>
+      </div>
+    </div>
+    <div class="ttf-arrow">→</div>
+    <div class="ttf-step">
+      <div class="ttf-icon">🎯</div>
+      <div>
+        <div class="ttf-name">The Funding Bench</div>
+        <div class="ttf-desc">Matched grants · instant</div>
+      </div>
+    </div>
+  </div>
 
   <div class="hub-divider">
     <div class="hub-divider-line"></div>
